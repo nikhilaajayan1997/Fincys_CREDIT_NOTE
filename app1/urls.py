@@ -819,7 +819,12 @@ urlpatterns = [
     path('addpurchasecredit/', views.addpurchasecredit, name='addpurchasecredit'),
     path('getcustdata/', views.getcustdata, name='getcustdata'),
     path('create_credit/', views.create_credit, name='create_credit'),
+    
     path('create_credit_save/',views.create_credit_save,name='create_credit_save'),
+    path('credit_note_filter_draft',views.credit_note_filter_draft,name='credit_note_filter_draft'),
+    path('credit_note_filter_save',views.credit_note_filter_save,name='credit_note_filter_save'),
+
+
     path('bnk_disables/<int:pk>', views.bnk_disables, name='bnk_disables'),
     path('delete_recon/<int:pk>', views.delete_recon, name='delete_recon'),
     path('render_pdfpayment_view/<int:id>', views.render_pdfpayment_view, name='render_pdfpayment_view'),

@@ -37800,6 +37800,22 @@ def start_reconcile(request,pk):
 
 #credit note
 
+def credit_note_filter_draft(request):
+    cmp1=company.objects.get(id=request.session['uid'])
+    pdebit=salescreditnote.objects.filter(cid=cmp1,status='Draft').values()
+    for p in pdebit:
+        cust=" " . join(p['customer'].split(" ")[1:])
+        p['cust']=cust
+    return render(request,'app1/credit_note.html',{'cmp1':cmp1,'pdebit':pdebit})
+
+def credit_note_filter_save(request):
+    cmp1=company.objects.get(id=request.session['uid'])
+    pdebit=salescreditnote.objects.filter(cid=cmp1,status='save').values()
+    for p in pdebit:
+        cust=" " . join(p['customer'].split(" ")[1:])
+        p['cust']=cust
+    return render(request,'app1/credit_note.html',{'cmp1':cmp1,'pdebit':pdebit})
+
 def credit_note(request):
     cmp1 = company.objects.get(id=request.session['uid'])
     pdebit = salescreditnote.objects.filter(cid=cmp1).values() 
@@ -40742,7 +40758,11 @@ def cust_dropdown(request):
     options = {}
     option_objects =customer.objects.filter(cid=cmp1)
     for option in option_objects:
-        options[option.id] = [option.name]
+       
+        # display_name = option.title
+        options[option.customerid] = [option.title , option.firstname, option.lastname]
+        # options[option.id] = [display_name, f"{display_name}"]
+        # options[option.id] = [option.name]
 
     return JsonResponse(options)
 
